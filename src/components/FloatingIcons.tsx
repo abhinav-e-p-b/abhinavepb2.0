@@ -1,25 +1,25 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Code, 
-  Palette, 
-  Zap, 
-  Layers, 
-  Smartphone, 
-  Globe, 
-  Sparkles, 
-  Rocket 
+  Server, 
+  Cloud, 
+  GitBranch, 
+  Terminal, 
+  Container, 
+  Network, 
+  Shield, 
+  Cpu 
 } from 'lucide-react';
 
 const icons = [
-  { Icon: Code, delay: 0, x: '10vw', y: '20vh' },
-  { Icon: Palette, delay: 0.5, x: '85vw', y: '15vh' },
-  { Icon: Zap, delay: 1, x: '20vw', y: '70vh' },
-  { Icon: Layers, delay: 1.5, x: '80vw', y: '75vh' },
-  { Icon: Smartphone, delay: 2, x: '15vw', y: '45vh' },
-  { Icon: Globe, delay: 2.5, x: '75vw', y: '50vh' },
-  { Icon: Sparkles, delay: 3, x: '25vw', y: '85vh' },
-  { Icon: Rocket, delay: 3.5, x: '90vw', y: '35vh' }
+  { Icon: Server, delay: 0, x: '10vw', y: '20vh' },
+  { Icon: Cloud, delay: 0.5, x: '85vw', y: '15vh' },
+  { Icon: GitBranch, delay: 1, x: '20vw', y: '70vh' },
+  { Icon: Terminal, delay: 1.5, x: '80vw', y: '75vh' },
+  { Icon: Container, delay: 2, x: '15vw', y: '45vh' },
+  { Icon: Network, delay: 2.5, x: '75vw', y: '50vh' },
+  { Icon: Shield, delay: 3, x: '25vw', y: '85vh' },
+  { Icon: Cpu, delay: 3.5, x: '90vw', y: '35vh' }
 ];
 
 const FloatingIcons: React.FC = () => {
