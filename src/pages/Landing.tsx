@@ -77,7 +77,7 @@ const Landing: React.FC = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight tracking-tight mb-8">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight tracking-tight mb-8 text-gray-900">
               <InteractiveText text="HI THERE " className="inline" />
               <InteractiveText text="ITS " className="inline" />
               <br className="hidden md:block" />
