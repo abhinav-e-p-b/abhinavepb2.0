@@ -4,13 +4,29 @@ import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/NavBar.css";
 
 const NavBar = () => {
   const [expanded, setExpanded] = useState(false);
   const scrollPos = useRef(0);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const scrollToSection = (id) => {
+    setExpanded(false);
+    const doScroll = () => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    };
+    if (location.pathname !== "/portfolio" && location.pathname !== "/portfolio/") {
+      navigate("/portfolio");
+      // wait for navigation + render before scrolling
+      setTimeout(doScroll, 100);
+    } else {
+      doScroll();
+    }
+  };
 
   useEffect(() => {
     if (expanded) {
@@ -43,11 +59,11 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto" onSelect={() => setExpanded(false)}>
-            <Nav.Link href="/#intro">Home</Nav.Link>
-            <Nav.Link href="/#about">About</Nav.Link>
-            <Nav.Link href="/#experience">Experience</Nav.Link>
-            <Nav.Link href="/#projects">Software</Nav.Link>
-            <Nav.Link href="/#art">Art</Nav.Link>
+            <Nav.Link onClick={() => scrollToSection("intro")}>Home</Nav.Link>
+            <Nav.Link onClick={() => scrollToSection("about")}>About</Nav.Link>
+            <Nav.Link onClick={() => scrollToSection("experience")}>Experience</Nav.Link>
+            <Nav.Link onClick={() => scrollToSection("projects")}>Software</Nav.Link>
+            <Nav.Link onClick={() => scrollToSection("art")}>Art</Nav.Link>
           </Nav>
           <Nav className="ms-auto" onSelect={() => setExpanded(false)}>
             <Nav.Link onClick={() => navigate('/')} title="Back to Home">

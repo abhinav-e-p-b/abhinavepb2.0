@@ -16,13 +16,13 @@ import "./styles/Global.css";
 import "./styles/RobotGame.css";
 
 function Portfolio() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   const [gameActive, setGameActive] = useState(false);
   const [showGameInfo, setShowGameInfo] = useState(false);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    if (!hash) window.scrollTo(0, 0);
+  }, [pathname, hash]);
 
   return (
     <div className="App">

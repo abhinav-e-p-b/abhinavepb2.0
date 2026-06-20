@@ -23,7 +23,7 @@
   position: relative;
   height: 100%;
   padding: 2rem 1.75rem;
-  background-color: #fff4ed;
+  background-color: var(--light-navy);
   border-radius: 16px;
   border: 1px solid rgba(249, 115, 22, 0.15);
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -31,7 +31,7 @@
 
 .projects-card:hover {
   transform: translateY(-7px);
-  background-color: #ffe8d6;
+  background-color: var(--lightest-navy);
   box-shadow: 0 10px 30px rgba(249, 115, 22, 0.15);
 }
 

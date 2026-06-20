@@ -140,7 +140,7 @@ const BlobCursor: React.FC<BlobCursorProps> = ({
             boxShadow: index === 0 
               ? `${shadowOffsetX}px ${shadowOffsetY}px ${shadowBlur * 3}px ${shadowColor}`
               : `${shadowOffsetX / 2}px ${shadowOffsetY / 2}px ${shadowBlur}px ${shadowColor}77`,
-            mixBlendMode: index === 0 ? 'normal' : 'multiply'
+            mixBlendMode: index === 0 ? 'normal' : 'screen'
           }}
         >
           <div

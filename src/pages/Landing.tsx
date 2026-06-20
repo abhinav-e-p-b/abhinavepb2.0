@@ -9,7 +9,7 @@ const Landing: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gray-50 overflow-hidden">
+    <div className="min-h-screen overflow-hidden" style={{ background: '#0a0a0f' }}>
       <BlobCursor
         blobType="blob"
         fillColor="#F97316"
@@ -39,7 +39,8 @@ const Landing: React.FC = () => {
         transition={{ duration: 0.6 }}
       >
         <motion.span
-          className="text-lg font-bold tracking-wide text-gray-800"
+          className="text-lg font-bold tracking-wide"
+          style={{ color: '#f5f5f5' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
@@ -51,9 +52,20 @@ const Landing: React.FC = () => {
             <motion.button
               key={item}
               onClick={() => navigate('/portfolio')}
-              className="border-2 border-gray-800 px-4 py-2 rounded-full
-                         hover:bg-gray-800 hover:text-white transition-colors duration-300
-                         text-sm md:text-base font-medium tracking-wide"
+              className="px-4 py-2 rounded-full text-sm md:text-base font-medium tracking-wide transition-colors duration-300"
+              style={{
+                border: '2px solid rgba(249,115,22,0.5)',
+                color: '#f5f5f5',
+                background: 'transparent',
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLButtonElement).style.background = '#F97316';
+                (e.currentTarget as HTMLButtonElement).style.borderColor = '#F97316';
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+                (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(249,115,22,0.5)';
+              }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, y: -20 }}
@@ -75,7 +87,7 @@ const Landing: React.FC = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}
         >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight tracking-tight mb-8 text-gray-900">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight tracking-tight mb-8" style={{ color: '#f5f5f5' }}>
             <InteractiveText text="HI THERE " className="inline" />
             <InteractiveText text="ITS " className="inline" />
             <br className="hidden md:block" />
@@ -86,7 +98,8 @@ const Landing: React.FC = () => {
 
         {/* Subtitle */}
         <motion.p
-          className="text-gray-400 text-sm md:text-base font-mono tracking-widest mb-12"
+          className="text-sm md:text-base font-mono tracking-widest mb-12"
+          style={{ color: 'rgba(249,115,22,0.6)' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.6 }}
@@ -125,7 +138,8 @@ const Landing: React.FC = () => {
 
         {/* Scroll hint — absolute anchored to the bottom of the hero section */}
         <motion.p
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-400 text-xs tracking-widest font-mono whitespace-nowrap"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs tracking-widest font-mono whitespace-nowrap"
+          style={{ color: 'rgba(245,245,245,0.35)' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2 }}
