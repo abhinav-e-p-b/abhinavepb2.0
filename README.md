@@ -1,317 +1,323 @@
-# Abhinave P B — Portfolio
+# Portfolio V2.0 — Abhinave P B
 
-A personal portfolio website built with React, TypeScript, and Vite. Features an interactive landing page, a full portfolio section with ASCII art, a playable platformer mini-game, project build logs, and an art gallery.
-
-Live at: **[abhinave.netlify.app](https://abhinave.netlify.app)** *(update with your actual URL)*
+> A personal portfolio website built with React + TypeScript + Vite, featuring an interactive landing page, dark-themed portfolio sections, glitch-effect portrait, a robot side-scroller game, and an art gallery.
 
 ---
 
-## Table of Contents
+## 📋 Table of Contents
 
 - [Overview](#overview)
 - [Features](#features)
-- [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
+- [Tech Stack](#tech-stack)
 - [Getting Started](#getting-started)
-- [Pages & Components](#pages--components)
-- [Customization Guide](#customization-guide)
+- [Available Scripts](#available-scripts)
+- [Pages & Sections](#pages--sections)
+- [Components](#components)
+- [Customisation](#customisation)
 - [Deployment](#deployment)
-- [Scripts](#scripts)
 
 ---
 
 ## Overview
 
-This portfolio is split into two main experiences:
+Portfolio V2.0 is a two-page React application:
 
-- **Landing Page (`/`)** — A typographic splash page with an interactive blob cursor, hoverable letters that randomize fonts and colors, and floating DevOps icons.
-- **Portfolio (`/portfolio`)** — A full scrollable portfolio with an ASCII canvas portrait, experience tabs, project cards, an art gallery, and a hidden platformer game.
+1. **Landing Page** — An animated splash screen with a custom blob cursor, floating icons, and interactive hover-letter text.
+2. **Portfolio Page** — A full portfolio with sections for Intro, About, Experience, Software Projects, and Art, plus a playable side-scroller game.
 
----
-
-## Features
-
-### Landing Page
-- **Interactive typography** — hover any letter in the hero text to randomize its font and color from a curated set of 38 Google Fonts.
-- **Blob cursor** — a GSAP-animated trailing cursor that replaces the system cursor across the entire site.
-- **Floating icons** — animated Lucide icons representing the tech focus areas (DevOps, Cloud, AI, etc.).
-
-### Portfolio
-- **ASCII portrait** — a canvas-based particle simulation that renders a profile photo as ASCII characters. Particles scatter and reform on mouse interaction.
-- **Experience tabs** — MUI-powered tabbed interface showing project categories and descriptions.
-- **Project carousel** — Bootstrap carousel for spotlight projects, with a responsive card grid for additional projects.
-- **Project build logs** — long-form article pages (`/portfolio/log/:projectId`) with support for text, images, code blocks, diagrams, and tip callouts.
-- **Art gallery** — a masonry-style image grid with a dedicated full-gallery page at `/art`.
-- **Robot game** — a canvas platformer ("game mode") where a pixel-art blob character jumps across DOM elements and collects brain cell collectibles. Activates via the toggle in the top-left corner; desktop only.
-- **Sidebar navigation** — fixed left-side quick-links on desktop.
-- **Fade-in sections** — IntersectionObserver-based scroll animations on all major sections.
+The design follows a **dark theme** (`#0a0a0f`) with an **orange accent** (`#F97316`) throughout both pages for a cohesive look.
 
 ---
 
-## Tech Stack
+## ✨ Features
 
-| Category | Library / Tool |
+| Feature | Description |
 |---|---|
-| Framework | React 19 |
-| Language | TypeScript |
-| Build tool | Vite 6 |
-| Styling | Tailwind CSS 3, custom CSS |
-| Animation | Framer Motion, GSAP |
-| UI components | MUI (Material UI) v9, React Bootstrap |
-| Icons | Lucide React, MUI Icons |
-| Routing | React Router DOM v7 |
-| HTTP client | Axios |
-| Fonts | Google Fonts (Oswald + 38 display fonts), Fontsource Oswald |
-| Deployment | Netlify |
+| 🎯 **Custom Blob Cursor** | GSAP-animated trailing blob that replaces the default cursor |
+| 🔤 **Interactive Text** | Letters on the landing page scatter and snap back on hover |
+| 🤖 **Robot Side-Scroller** | Toggle a browser game where a robot runs across the page |
+| 👾 **Glitch Portrait** | Profile photo with animated CRT scanlines, chromatic aberration, and glitch bursts |
+| 🎨 **Art Gallery** | Masonry grid of artwork with a full `/art` gallery page |
+| 🌊 **Fade-in Sections** | IntersectionObserver-based scroll animations on every section |
+| 📱 **Fully Responsive** | Mobile-first layouts across all breakpoints |
+| 🚀 **Smooth Navigation** | Section-aware navbar with smooth scroll — no full-page reloads |
 
 ---
 
 ## Project Structure
 
 ```
+Portfolio-V2.0/
 ├── public/
-│   ├── profile.png              # Profile photo used for ASCII portrait
-│   └── assets/
-│       ├── art/                 # Art gallery images
-│       └── hardware/            # Project log images (pc, grass-cyberdeck, led-bracelet)
+│   ├── profile.png              # Profile photo used by GlitchPortrait
+│   ├── assets/
+│   │   └── art/                 # Art section images (JPG)
+│   └── _redirects               # Netlify SPA redirect
 │
 ├── src/
-│   ├── App.tsx                  # Root router (Landing + Portfolio routes)
+│   ├── App.tsx                  # Root router — / (Landing) and /portfolio/* (Portfolio)
 │   ├── main.tsx                 # React entry point
-│   ├── index.css                # Global styles, font imports, Tailwind directives
+│   ├── index.css                # Global styles, Tailwind, custom cursor rules
 │   │
-│   ├── components/              # Shared components (used on Landing)
-│   │   ├── BlobCursor.tsx       # GSAP trailing cursor
-│   │   ├── FloatingIcons.tsx    # Animated background icons
-│   │   ├── ImageSpawner.tsx     # Click-to-spawn image effect (unused by default)
-│   │   └── InteractiveText.tsx  # Per-letter font/color randomizer
+│   ├── components/              # Shared components (Landing page)
+│   │   ├── BlobCursor.tsx       # GSAP trailing blob cursor
+│   │   ├── FloatingIcons.tsx    # Floating tech icons background
+│   │   ├── ImageSpawner.tsx     # Click-to-spawn image effect
+│   │   └── InteractiveText.tsx  # Hover-scatter letter animation
 │   │
 │   └── pages/
-│       ├── Landing.tsx          # Landing page (/)
+│       ├── Landing.tsx          # Landing / splash page
 │       └── portfolio/
-│           ├── Portfolio.jsx    # Portfolio shell with NavBar, SidebarNav, RobotGame
-│           ├── Portfolio.css    # Portfolio-specific global styles
-│           │
+│           ├── Portfolio.jsx    # Portfolio shell — routing + game toggle
+│           ├── Portfolio.css    # Portfolio-wide layout styles
 │           ├── assets/
-│           │   └── asciiData.js # Pre-computed ASCII particle positions (220/280/400px)
-│           │
+│           │   └── asciiData.js # Pre-baked ASCII portrait data (empty = live render)
 │           ├── components/
-│           │   ├── About.jsx
-│           │   ├── Art.jsx
-│           │   ├── ArtGallery.jsx
-│           │   ├── AsciiPortrait.jsx    # Canvas ASCII particle animation
-│           │   ├── Credits.jsx
-│           │   ├── Experience.jsx
-│           │   ├── ExternalLinks.jsx
-│           │   ├── FadeInSection.jsx    # IntersectionObserver scroll fade
-│           │   ├── Intro.jsx
-│           │   ├── JobList.jsx          # MUI vertical/horizontal tab experience
-│           │   ├── NavBar.jsx
-│           │   ├── ProjectLog.jsx       # Long-form project article renderer
-│           │   ├── Projects.jsx         # Carousel + card grid
-│           │   ├── RobotGame.jsx        # Canvas platformer game
-│           │   └── SidebarNav.jsx
-│           │
-│           └── styles/                  # Component-scoped CSS files
+│           │   ├── NavBar.jsx          # Fixed top navbar with smooth-scroll links
+│           │   ├── SidebarNav.jsx      # Vertical dot-nav sidebar
+│           │   ├── Intro.jsx           # Hero intro with GlitchPortrait
+│           │   ├── GlitchPortrait.jsx  # Canvas portrait with CRT/glitch FX
+│           │   ├── About.jsx           # About me + tech stack
+│           │   ├── Experience.jsx      # Work experience tabs
+│           │   ├── JobList.jsx         # Individual job tab panel
+│           │   ├── Projects.jsx        # Spotlight carousel + project cards
+│           │   ├── ProjectLog.jsx      # Full project write-up page
+│           │   ├── Art.jsx             # Art section preview grid
+│           │   ├── ArtGallery.jsx      # Full art gallery page (/art)
+│           │   ├── Credits.jsx         # Footer credits
+│           │   ├── FadeInSection.jsx   # IntersectionObserver scroll-fade wrapper
+│           │   ├── ExternalLinks.jsx   # GitHub / external link icon buttons
+│           │   └── RobotGame.jsx       # Canvas side-scroller mini-game
+│           └── styles/
+│               ├── Global.css      # CSS variables (dark theme tokens)
+│               ├── NavBar.css
+│               ├── Intro.css
 │               ├── About.css
+│               ├── Experience.css
+│               ├── Projects.css
+│               ├── ProjectLog.css
 │               ├── Art.css
 │               ├── ArtGallery.css
+│               ├── SidebarNav.css
 │               ├── Credits.css
-│               ├── Experience.css
-│               ├── Global.css           # CSS custom properties (color palette)
-│               ├── Intro.css
-│               ├── NavBar.css
-│               ├── ProjectLog.css
-│               ├── Projects.css
-│               ├── RobotGame.css
-│               └── SidebarNav.css
+│               └── RobotGame.css
 │
 ├── index.html
 ├── vite.config.ts
 ├── tailwind.config.js
-├── postcss.config.js
-├── tsconfig.json
-└── netlify.toml
+├── netlify.toml
+└── package.json
 ```
 
 ---
 
-## Getting Started
+## 🛠 Tech Stack
+
+### Core
+| Technology | Version | Role |
+|---|---|---|
+| **React** | 19 | UI framework |
+| **TypeScript** | 5.8 | Type safety (landing page) |
+| **Vite** | 6 | Build tool & dev server |
+| **React Router DOM** | 7 | Client-side routing |
+
+### Styling
+| Technology | Role |
+|---|---|
+| **Vanilla CSS** | Portfolio page — all component styles |
+| **TailwindCSS** | Landing page utility classes |
+| **CSS Variables** | Dark theme tokens in `Global.css` |
+
+### Animation & UI
+| Library | Role |
+|---|---|
+| **GSAP** | Blob cursor animation |
+| **Framer Motion** | Landing page entrance animations |
+| **Canvas API** | Glitch portrait, robot game |
+
+### Component Libraries
+| Library | Role |
+|---|---|
+| **MUI (Material UI)** | Icons throughout portfolio |
+| **React Bootstrap** | Navbar, carousel |
+| **react-type-animation** | Typewriter intro text |
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js 18 or higher
+- Node.js `>= 18`
 - npm
 
 ### Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/abhinav-e-p-b/<your-repo-name>.git
-cd <your-repo-name>
+# 1. Clone the repository
+git clone https://github.com/abhinav-e-p-b/abhinavepb2.0.git
+cd abhinavepb2.0
 
-# Install dependencies
+# 2. Install dependencies
 npm install
 
-# Start the development server
+# 3. Start the development server
 npm run dev
 ```
 
-The dev server starts on `http://localhost:5173` by default (or the next available port). The `--host` flag is set in the dev script, so it will also be accessible on your local network.
+The app runs at `http://localhost:5173` by default.
 
 ---
 
-## Pages & Components
+## Available Scripts
 
-### Routes
+| Script | Description |
+|---|---|
+| `npm run dev` | Start Vite dev server with hot reload |
+| `npm run build` | Build for production → `/dist` |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run ESLint |
 
-| Path | Component | Description |
+---
+
+## 📄 Pages & Sections
+
+### `/` — Landing Page
+- Custom orange blob cursor with GSAP trail
+- Floating tech icon background
+- Interactive text — hover over letters to scatter them
+- CTA button to enter portfolio
+
+### `/portfolio` — Portfolio Page
+
+| Section | ID | Description |
 |---|---|---|
-| `/` | `Landing` | Hero page with interactive text and blob cursor |
-| `/portfolio` | `Portfolio` | Main portfolio with all sections |
-| `/portfolio/log/:projectId` | `ProjectLog` | Long-form build log article |
-| `/art` | `ArtGallery` | Full art collection |
+| Intro | `#intro` | Glitch portrait + typewriter greeting |
+| About | `#about` | Bio, tech stack list, GitHub avatar |
+| Experience | `#experience` | Tabbed work experience panel |
+| Software | `#projects` | Spotlight carousel + project cards |
+| Art | `#art` | Masonry art preview + link to full gallery |
 
-### Color Palette
+### `/portfolio/art` — Full Art Gallery
+Masonry grid of all artwork with a back-button to the main portfolio.
 
-Colors are defined as CSS custom properties in `src/pages/portfolio/styles/Global.css`:
+### `/portfolio/projects/:id` — Project Log
+Detailed write-up page for individual projects with hero image, article sections, code blocks, and tips.
 
-```css
---navy: #ffffff
---light-navy: #fff4ed
---lightest-navy: #ffe8d6
---slate: #6b7280
---lightest-slate: #111827
---green-bright: #F97316   /* primary accent (orange) */
---green-tint: rgba(249, 115, 22, 0.1)
+---
+
+## 🧩 Components
+
+### `GlitchPortrait.jsx`
+Canvas-based component that renders `profile.png` with:
+- **CRT scanlines** — scrolling horizontal bands
+- **Chromatic aberration** — RGB channels split during glitch events
+- **Horizontal slice corruption** — rows shift sideways randomly
+- **Vignette** — dark radial fade around edges
+- **Orange bracket framing** — corner `[ ]` brackets in the brand orange
+- **Flickering label** — `// abhinave.pb` text that glitches out during distortion
+
+To change the portrait photo, replace `/public/profile.png`.
+
+### `BlobCursor.tsx`
+GSAP-powered cursor replacement. Key props:
+```tsx
+<BlobCursor
+  fillColor="#F97316"      // Blob colour
+  trailCount={3}           // Number of trailing blobs
+  sizes={[20, 40, 60]}     // Blob sizes in px
+  filterStdDeviation={15}  // Gooey blur strength
+  zIndex={9999}
+/>
 ```
 
-> Despite the variable names (inherited from a common portfolio template), the palette is a warm white/orange theme rather than the classic dark navy/green.
+### `RobotGame.jsx`
+A browser mini-game toggled via the **game mode** button (top-left of portfolio).
 
-### ASCII Portrait
-
-The ASCII portrait in `AsciiPortrait.jsx` works in three tiers:
-
-1. **Pre-computed data** (`asciiData.js`) — used for the three standard sizes (220px, 280px, 400px). No image processing needed.
-2. **Memory cache** — if a non-standard size is needed, the image is processed once and cached in a module-level object for the session.
-3. **Image fallback** — processes `/public/profile.png` via an offscreen canvas, converting pixel brightness to ASCII characters.
-
-To update the portrait, replace `/public/profile.png` and optionally regenerate `asciiData.js` for the standard sizes.
-
-### Project Build Logs
-
-Build logs are defined as a data object inside `ProjectLog.jsx`. Each entry supports these content block types:
-
-| Type | Renders as |
+Controls:
+| Key | Action |
 |---|---|
-| `text` | Paragraph |
-| `image` | Full-width image with rounded corners |
-| `list` | Bulleted list with optional title |
-| `tip` | Highlighted callout box with "Tip:" prefix |
-| `code` | Monospace code block with dark background |
-| `diagram` | Pre-formatted ASCII diagram in accent color |
+| `← →` | Move left / right |
+| `Space` | Jump |
+| `Scroll` | Explore the page |
 
-To add a new project log, add an entry to the `projectLogs` object:
+### `FadeInSection.jsx`
+Scroll-activated fade-in wrapper using `IntersectionObserver`. Use the `delay` prop to stagger children:
+```jsx
+<FadeInSection delay="200ms">
+  <YourComponent />
+</FadeInSection>
+```
 
-```js
-"my-project": {
-  title: "My Project Title",
-  date: "June 2026",
-  description: "Short description shown in the header.",
-  image: "/assets/hardware/my-project/header.jpg",
-  logs: [
-    {
-      title: "0. where it started",
-      content: [
-        { type: "text", value: "My story here..." },
-        { type: "image", value: "/assets/hardware/my-project/photo.jpg" },
-      ]
-    }
-  ]
+---
+
+## 🎨 Customisation
+
+### Changing the colour theme
+All theme tokens live in one file: `src/pages/portfolio/styles/Global.css`
+
+```css
+:root {
+  --navy: #0a0a0f;           /* Page background */
+  --light-navy: #13131c;     /* Card backgrounds */
+  --lightest-navy: #1a1a28;  /* Hover card backgrounds */
+  --slate: #9ca3af;          /* Secondary text */
+  --lightest-slate: #f5f5f5; /* Primary text */
+  --green-bright: #F97316;   /* Accent colour (orange) */
+  --green-tint: rgba(249, 115, 22, 0.12); /* Accent tint */
 }
 ```
 
-Then link to it from `Projects.jsx` using `openLink: "/portfolio/log/my-project"`.
+### Updating your profile photo
+Replace `/public/profile.png` with your own image. PNG format with a plain or transparent background works best for the glitch effect.
 
-### Robot Game
+### Adding projects
+Edit `spotlightProjects` (carousel) and `projects` (cards) in `Projects.jsx`:
+```js
+const projects = {
+  "Your Project Name": {
+    desc: "Short description.",
+    techStack: "React, Node.js",
+    link: "https://github.com/you/your-repo",
+    open: "https://your-live-site.com", // optional
+  },
+};
+```
 
-The platformer in `RobotGame.jsx` is a canvas-based game that:
+### Adding art
+1. Drop image files into `/public/assets/art/`
+2. Add entries to `topArt` in `Art.jsx` (preview) and `allArt` in `ArtGallery.jsx` (full gallery):
+```js
+{ src: "/assets/art/your-image.jpg", title: "your title" }
+```
 
-- Reads DOM element positions from section headings, card titles, and list items to use as platforms
-- Spawns 5 "brain cell" collectibles at fixed document positions
-- Supports keyboard controls: `← →` or `A D` to move, `Space` / `↑` / `W` to jump
-- Resets automatically on page scroll-to-top when game mode is enabled
-- Hidden on mobile (< 800px)
+### Updating experience
+Edit `JobList.jsx` to add or modify work experience entries.
 
 ---
 
-## Customization Guide
+## 🌐 Deployment
 
-### Update personal information
+The project is configured for **Netlify** out of the box via `netlify.toml`.
 
-| What | Where |
-|---|---|
-| Name, bio, tech stack | `src/pages/portfolio/components/About.jsx` |
-| Experience entries | `src/pages/portfolio/components/JobList.jsx` → `experienceItems` object |
-| Spotlight & other projects | `src/pages/portfolio/components/Projects.jsx` → `spotlightProjects` / `projects` objects |
-| Social links (GitHub, LinkedIn, email) | `src/pages/portfolio/components/NavBar.jsx` |
-| Email contact link | `src/pages/portfolio/components/Intro.jsx` |
-| Profile photo | Replace `/public/profile.png` |
+### Deploy to Netlify
+1. Push to GitHub
+2. Connect the repo in the Netlify dashboard
+3. Build settings are auto-detected:
+   - **Build command:** `npm install && npm run build`
+   - **Publish directory:** `dist`
+   - **Node version:** 18
+4. All routes redirect to `index.html` for React Router SPA support
 
-### Update the art gallery
-
-Add image paths to the `topArt` array in `Art.jsx` (for the portfolio section preview) and the `allArt` array in `ArtGallery.jsx` (for the full gallery page). Place images in `/public/assets/art/`.
-
-### Change the accent color
-
-The primary accent color is `#F97316` (orange). To change it, update:
-- `--green-bright` in `styles/Global.css`
-- The `fillColor` prop on `<BlobCursor>` in `Landing.tsx`
-- The gradient values in the CTA button in `Landing.tsx`
-- The `shadowColor` prop on `<BlobCursor>`
-
-### Add or remove Google Fonts
-
-The `creativeFonts` array in `InteractiveText.tsx` lists all fonts used for the letter-hover effect. Add or remove font names from this array, and update the `@import` URL in `index.css` to match.
-
----
-
-## Deployment
-
-The project is configured for Netlify via `netlify.toml`:
-
-```toml
-[build]
-  command = "npm install && npm run build"
-  publish = "dist"
-```
-
-**To deploy:**
-
-1. Push to your GitHub repository.
-2. Connect the repo to [Netlify](https://netlify.com).
-3. Netlify will auto-detect the build settings from `netlify.toml`.
-4. Every push to `main` triggers a new deployment.
-
-**For React Router to work on Netlify**, add a `_redirects` file to `/public/`:
-
-```
-/*    /index.html   200
-```
-
-This ensures that direct navigation to `/portfolio` or `/portfolio/log/pc` doesn't return a 404.
-
----
-
-## Scripts
-
+### Manual / other hosts
 ```bash
-npm run dev      # Start development server (with --host for LAN access)
-npm run build    # Type-check and build for production → ./dist
-npm run preview  # Preview the production build locally
-npm run lint     # Run ESLint
+npm run build
+# Upload the /dist folder to any static host (Vercel, GitHub Pages, S3, etc.)
 ```
 
 ---
 
-*Built by Abhinave P B.*
+## 📝 License
+
+Built by **Abhinave P B**. All rights reserved.

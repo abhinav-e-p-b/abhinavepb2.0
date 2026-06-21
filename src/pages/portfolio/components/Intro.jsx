@@ -1,15 +1,15 @@
-import React from "react";
+ import React from "react";
 import "../styles/Intro.css";
 import { TypeAnimation } from "react-type-animation";
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
 import FadeInSection from "./FadeInSection";
-import AsciiPortrait from "./AsciiPortrait";
+import GlitchPortrait from "./GlitchPortrait";
 
 const Intro = () => {
   return (
     <div id="intro">
       <div className="intro-simulation">
-        <AsciiPortrait />
+        <GlitchPortrait />
       </div>
       <div className="intro-block">
         <div className="intro-title">
